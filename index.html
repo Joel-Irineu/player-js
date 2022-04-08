@@ -10,62 +10,106 @@
 </head>
 <body>
     <div class="wraper">
-        <video class="myVideo" controls muted="">
-            <source src="video/video.mp4" type="video/mp4">
-            
-        </video>
-        <div class="play">
-            <h3>Seu vídeo já começou</h3>
-            <img class="img" src="img/som.png" alt="">
-            <h3>Clique para ouvir</h3>
+        <div class="form-container">
+            <form onsubmit=" event.preventDefault()">
+                <label for="video-url">Insira caminho do video</label>
+                <input type="text" name="video-url" id="video-url" placeholder="https://meusite.com/video.mp4">
+                <label for="time-btn">Insira o tempo</label>
+                <input type="text" name="time-btn" id="time-btn" placeholder="00:00">
+                <label for="link">insira a link</label>
+                <input type="text" name="link" id="link" placeholder="https://meusite.com/">
+                <label for="btn-text">insira o texto do botão</label>
+                <input type="text" name="btn-text" id="btn-text" placeholder="Clique aqui">
+
+                <button class="btn-form" onclick="createPlayer()">Enviar</button>
+            </form>
         </div>
-        <div class="btncompra">
-            <a href="#" target="_blank" class="btn">
-                Comprar
-            </a>
+        <div class="video-container">
         </div>
     </div>
     
     <script>
-        // inicialização de variáveis
-        let video = document.querySelector('video');
-        let play = document.querySelector('.play');
-        let played = false;
+        // testes criar player
+        let videoContainer = document.querySelector('.video-container');
+        let videoUrl;
+        let url;
 
-        // iniciar video mudo
-        setTimeout(function(){
-            video.play()
-        },500);
+        function createPlayer(){
+            let videoUrl = document.querySelector('#video-url').value;
+            let link = document.querySelector('#link').value;
+            let timeBtn = document.querySelector('#time-btn').value;
+            let btnText = document.querySelector('#btn-text').value;
+            let formContainer = document.querySelector('.form-container');
 
-        // iniciar video e ocultar play
-        play.addEventListener('click',playVideo);
+            videoContainer.innerHTML = `
+                <video class="myVideo" controls muted="">
+                    <source src="${videoUrl}" type="video/mp4">
+                </video>
+                <div class="play">
+                    <h3>Seu vídeo já começou</h3>
+                    <img class="img" src="img/som.png" alt="">
+                    <h3>Clique para ouvir</h3>
+                </div>
+                <div class="btncompra">
+                    <a href="${link}" target="_blank" class="btn">
+                        ${btnText}
+                    </a>
+                </div>
+            `;
+            
+            let video = document.querySelector('video');
+            let play = document.querySelector('.play');
+            let played = false;
 
-        function playVideo(){
-            play.style.display = 'none';
-            video.currentTime = 0;
-            video.muted = false;
-            played = true;
+            video.play();
 
-            let time = TimeInSegonds(0,05);
+            play.addEventListener('click',playVideo);
 
-            video.ontimeupdate = ()=>{
-                showBtn(time);
+            function playVideo(){
+                play.style.display = 'none';
+                video.currentTime = 0;
+                video.muted = false;
+                played = true;
+
+                let time = getTime(timeBtn);
+
+                video.ontimeupdate = ()=>{
+                    showBtn(time);
+                }
             }
-        }
 
-        // Função para retornar tempo em segundos
-        function TimeInSegonds(min,seg){
-            return min * 60 + seg;
-        }
+            // Função para retornar tempo em segundos
+                function getTime(time){
+                    let timeSplit = time.split(":");
+                    return parseInt(timeSplit[0]) * 60 + parseInt(timeSplit[1]);
+                    
+                }
 
-        function showBtn(time){
-            if (video.currentTime > time){
-                let btncompra = document.querySelector('.btncompra');
-            btncompra.style.display = 'block';
+            function showBtn(time){
+                if (video.currentTime > time){
+                    let btncompra = document.querySelector('.btncompra');
+                btncompra.style.display = 'block';
+                }
+            
             }
-           
+
+            formContainer.style.display = 'none';
+
+            
+
         }
         
     </script>
 </body>
 </html>
+
+
+<!-- 
+
+function pegarTempo(time){
+    let timeSplit = time.split(":");
+    let [min, seg] = timeSplit;
+    console.log(min, seg);
+}
+
+ -->
