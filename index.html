@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player.js</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css" />
 </head>
 <body>
     <div class="wraper">
@@ -20,6 +21,16 @@
                 <input type="text" name="link" id="link" placeholder="https://meusite.com/">
                 <label for="btn-text">insira o texto do botão</label>
                 <input type="text" name="btn-text" id="btn-text" placeholder="Clique aqui">
+               <div class="colors">
+                    <div class="color">
+                        <label for="bg-color">Escolha a cor de fundo</label>
+                        <input type="color" name="bg-color" id="bg-color">
+                    </div>
+                    <div class="color">
+                        <label for="text-color">Escolha a cor do texto</label>
+                        <input type="color" name="text-color" id="text-color">
+                    </div>
+               </div>
 
                 <button class="btn-form" onclick="createPlayer()">Enviar</button>
             </form>
@@ -28,76 +39,10 @@
         </div>
     </div>
     
+    <script src="js/player.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script>
-        // testes criar player
-        let videoContainer = document.querySelector('.video-container');
-        let videoUrl;
-        let url;
-
-        function createPlayer(){
-            let videoUrl = document.querySelector('#video-url').value;
-            let link = document.querySelector('#link').value;
-            let timeBtn = document.querySelector('#time-btn').value;
-            let btnText = document.querySelector('#btn-text').value;
-            let formContainer = document.querySelector('.form-container');
-
-            videoContainer.innerHTML = `
-                <video class="myVideo" muted="">
-                    <source src="${videoUrl}" type="video/mp4">
-                </video>
-                <div class="play">
-                    <h3>Seu vídeo já começou</h3>
-                    <img class="img" src="img/som.png" alt="">
-                    <h3>Clique para ouvir</h3>
-                </div>
-                <div class="btncompra">
-                    <a href="${link}" target="_blank" class="btn">
-                        ${btnText}
-                    </a>
-                </div>
-            `;
-            
-            let video = document.querySelector('video');
-            let play = document.querySelector('.play');
-            let played = false;
-
-            video.play();
-
-            play.addEventListener('click',playVideo);
-
-            function playVideo(){
-                play.style.display = 'none';
-                video.currentTime = 0;
-                video.muted = false;
-                played = true;
-
-                let time = getTime(timeBtn);
-
-                video.ontimeupdate = ()=>{
-                    showBtn(time);
-                }
-            }
-
-            // Função para retornar tempo em segundos
-                function getTime(time){
-                    let timeSplit = time.split(":");
-                    return parseInt(timeSplit[0]) * 60 + parseInt(timeSplit[1]);
-                    
-                }
-
-            function showBtn(time){
-                if (video.currentTime > time){
-                    let btncompra = document.querySelector('.btncompra');
-                btncompra.style.display = 'block';
-                }
-            
-            }
-
-            formContainer.style.display = 'none';
-
-            
-
-        }
+        
         
     </script>
 </body>

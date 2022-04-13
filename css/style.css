@@ -2,9 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-body{
-    background-color: blueviolet;
     font-family: sans-serif;
 }
 .video-container{
@@ -22,7 +19,7 @@ body{
     flex-direction: column;
     width: 100%;
 }
-.form-container > form > label{
+.form-container > form > label, .color > label{
     font-size: 20px;
     font-weight: bold;
     margin: 5px 0px;
@@ -31,6 +28,13 @@ body{
 .form-container > form > input{
     width: 100%;
     padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px 0px;
+}
+.color > input{
+    width: 100%;
+    padding: 3px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 5px 0px;
@@ -69,26 +73,54 @@ video{
     border-radius: 10px;
     font-weight: 600;
 }
-.play{
+.btn-play{
     width: 50%;
     padding: 20px 0;
     text-align: center;
-    color: #fff;
     border-radius: 10px;
     cursor: pointer;
     margin-top: -45%;
     margin-left: 25%;
-    background-color: #0339ff;
     border: #fff solid 2px;
     position: relative;
     z-index: 1;
 }
-.play > h3{
+.pause{
+    /* padding: 27px 0;
+    margin-top: -30%;  */
+    display: none;
+}
+.btn-play > h3{
     font-size: 1.3em;
     font-weight: 600;
     padding: 5px;
 }
+.btn-play i{
+    font-size: 4em;
+    padding: 15px;
+}
 .img{
     width: 80%;
     max-width: 100px;
+}
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	width: 40px;
+	height: 40px;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+.colors{
+    display: flex;
+    justify-content: space-between;
+}
+.color{
+    display: inline;
+    width: 50%;
+    padding: 10px;
 }
